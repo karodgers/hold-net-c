@@ -8,13 +8,25 @@ import (
 	"time"
 )
 
-// HandleConnection handles communication with a connected client
+// MaxClients is the maximum number of clients allowed in the chat
+const MaxClients = 10
+
+// handleConnection handles communication with a connected client
 func handleConnection(conn net.Conn) {
 	defer conn.Close()
 	conn.Write([]byte("Welcome to TCP-Chat!\n"))
 
 	// Send ASCII art
 	sendAsciiArt(conn)
+
+	// Check if the number of clients exceeds the maximum limit
+	mutex.Lock()
+	if len(clients) >= MaxClients {
+		conn.Write([]byte("Sorry, the chat room is full. Please try again later.\n"))
+		mutex.Unlock()
+		return
+	}
+	mutex.Unlock()
 
 	conn.Write([]byte("[ENTER YOUR NAME]: "))
 
@@ -32,7 +44,7 @@ func handleConnection(conn net.Conn) {
 		// Check if username already exists
 		mutex.Lock()
 		if isUsernameTaken(name) {
-			conn.Write([]byte("Username taken! Try again.\n[ENTER YOUR NAME]: "))
+			conn.Write([]byte("Username taken, try again.\n[ENTER YOUR NAME]: "))
 			mutex.Unlock()
 			continue
 		}
