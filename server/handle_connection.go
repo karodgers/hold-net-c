@@ -11,6 +11,9 @@ import (
 // MaxClients is the maximum number of clients allowed in the chat
 const MaxClients = 10
 
+// MaxUsernameLength is the maximum number of characters allowed in a username
+const MaxUsernameLength = 15
+
 // handleConnection handles communication with a connected client
 func handleConnection(conn net.Conn) {
 	defer conn.Close()
@@ -37,25 +40,36 @@ func handleConnection(conn net.Conn) {
 			return
 		}
 		name = strings.TrimSpace(nameInput)
+
+		// Check if the username is empty
 		if name == "" {
 			conn.Write([]byte("Name cannot be empty.\n[ENTER YOUR NAME]: "))
 			continue
 		}
-		// Check if username already exists
+
+		// Check if the username exceeds the max length
+		if len(name) > MaxUsernameLength {
+			conn.Write([]byte(fmt.Sprintf("Username cannot exceed %d characters.\n[ENTER YOUR NAME]: ", MaxUsernameLength)))
+			continue
+		}
+
+		// Check if the username is already taken
 		mutex.Lock()
 		if isUsernameTaken(name) {
 			conn.Write([]byte("Username taken, try again.\n[ENTER YOUR NAME]: "))
 			mutex.Unlock()
 			continue
 		}
-		// If username is unique, add the client
+		// If the username is unique, add the client
 		clients[conn] = name
 		mutex.Unlock()
 		break
 	}
+
+	// Send the message history to the new client
 	sendMessageHistory(conn)
 
-	// Broadcast join message with timestamp and log it
+	// Broadcast the join message with a timestamp and log it
 	timestamp := time.Now().Format("2006-01-02 15:04:05")
 	joinMessage := fmt.Sprintf("[%s][%s]: %s has joined our chat...", timestamp, name, name)
 	broadcastMessage(joinMessage, conn)
@@ -73,6 +87,13 @@ func handleConnection(conn net.Conn) {
 		// Handle username change command
 		if strings.HasPrefix(message, "/name ") {
 			newName := strings.TrimPrefix(message, "/name ")
+
+			// Validate the new username length
+			if len(newName) > MaxUsernameLength {
+				conn.Write([]byte(fmt.Sprintf("Username cannot exceed %d characters.\n", MaxUsernameLength)))
+				continue
+			}
+
 			oldName, err := handleNameChange(conn, newName)
 			if err != nil {
 				conn.Write([]byte(err.Error() + "\n"))
@@ -114,7 +135,7 @@ func handleConnection(conn net.Conn) {
 	delete(clients, conn)
 	mutex.Unlock()
 
-	// Broadcast leave message with timestamp and log it
+	// Broadcast the leave message with a timestamp and log it
 	timestamp = time.Now().Format("2006-01-02 15:04:05")
 	leaveMessage := fmt.Sprintf("[%s][%s]: %s has left our chat", timestamp, name, name)
 	broadcastMessage(leaveMessage, conn)
