@@ -79,9 +79,12 @@ func handleConnection(conn net.Conn) {
 				continue
 			}
 
+			// Update the local name variable
+			name = newName
+
 			// Notify other users of the username change
 			timestamp := time.Now().Format("2006-01-02 15:04:05")
-			changeMessage := fmt.Sprintf("[%s][%s]: %s changed their name to %s", timestamp, oldName, oldName, newName)
+			changeMessage := fmt.Sprintf("[%s][%s]: %s changed their name to %s", timestamp, newName, oldName, newName)
 			broadcastMessage(changeMessage, conn)
 
 			// Log the username change
