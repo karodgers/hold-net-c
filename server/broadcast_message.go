@@ -6,7 +6,7 @@ import "net"
 func BroadcastMessage(message string, excludeConn net.Conn) {
 	mutex.Lock()
 	defer mutex.Unlock()
-	messageHistory = append(messageHistory, message)
+	MessageHistory = append(MessageHistory, message)
 
 	for conn := range Clients {
 		if conn != excludeConn {

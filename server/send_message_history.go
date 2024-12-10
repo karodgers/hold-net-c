@@ -6,7 +6,7 @@ import "net"
 func sendMessageHistory(conn net.Conn) {
 	mutex.Lock()
 	defer mutex.Unlock()
-	for _, msg := range messageHistory {
+	for _, msg := range MessageHistory {
 		conn.Write([]byte(msg + "\n"))
 	}
 }

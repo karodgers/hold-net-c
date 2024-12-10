@@ -9,7 +9,7 @@ import (
 var (
 	Clients        = make(map[net.Conn]string)
 	mutex          = &sync.Mutex{}
-	messageHistory []string
+	MessageHistory []string
 )
 
 // StartServer starts the TCP server and listens for incoming connections

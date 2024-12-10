@@ -24,7 +24,7 @@ func (m *mockConn) SetWriteDeadline(t time.Time) error { return nil }
 func TestBroadcastMessage(t *testing.T) {
 	// Clear the clients map and message history
 	server.Clients = make(map[net.Conn]string)
-	messageHistory = []string{}
+	server.MessageHistory = []string{}
 
 	// Create mock connections
 	excludeConn := &mockConn{}
