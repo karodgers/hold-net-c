@@ -72,7 +72,7 @@ func handleConnection(conn net.Conn) {
 	// Broadcast the join message with a timestamp and log it
 	timestamp := time.Now().Format("2006-01-02 15:04:05")
 	joinMessage := fmt.Sprintf("[%s][%s]: %s has joined our chat...", timestamp, name, name)
-	broadcastMessage(joinMessage, conn)
+	BroadcastMessage(joinMessage, conn)
 
 	// Log the join event
 	logToFile(joinMessage)
@@ -106,7 +106,7 @@ func handleConnection(conn net.Conn) {
 			// Notify other users of the username change
 			timestamp := time.Now().Format("2006-01-02 15:04:05")
 			changeMessage := fmt.Sprintf("[%s][%s]: %s changed their name to %s", timestamp, newName, oldName, newName)
-			broadcastMessage(changeMessage, conn)
+			BroadcastMessage(changeMessage, conn)
 
 			// Log the username change
 			logToFile(changeMessage)
@@ -124,7 +124,7 @@ func handleConnection(conn net.Conn) {
 		timestampedMessage := fmt.Sprintf("[%s][%s]: %s", timestamp, name, message)
 
 		// Broadcast the timestamped message
-		broadcastMessage(timestampedMessage, conn)
+		BroadcastMessage(timestampedMessage, conn)
 
 		// Log the message sent
 		logToFile(timestampedMessage)
@@ -138,7 +138,7 @@ func handleConnection(conn net.Conn) {
 	// Broadcast the leave message with a timestamp and log it
 	timestamp = time.Now().Format("2006-01-02 15:04:05")
 	leaveMessage := fmt.Sprintf("[%s][%s]: %s has left our chat", timestamp, name, name)
-	broadcastMessage(leaveMessage, conn)
+	BroadcastMessage(leaveMessage, conn)
 
 	// Log the leave event
 	logToFile(leaveMessage)
