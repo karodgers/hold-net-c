@@ -20,7 +20,7 @@ func handleConnection(conn net.Conn) {
 	conn.Write([]byte("Welcome to TCP-Chat!\n"))
 
 	// Send ASCII art
-	sendAsciiArt(conn)
+	SendAsciiArt(conn)
 
 	// Check if the number of clients exceeds the maximum limit
 	mutex.Lock()

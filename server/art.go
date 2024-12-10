@@ -4,7 +4,7 @@ import (
 	"net"
 )
 
-func sendAsciiArt(conn net.Conn) {
+func SendAsciiArt(conn net.Conn) {
 	// Linux ASCII art
 	conn.Write([]byte("         _nnnn_\n"))
 	conn.Write([]byte("        dGGGGMMb\n"))
