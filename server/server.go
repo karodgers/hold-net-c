@@ -30,6 +30,6 @@ func StartServer(port int) {
 			continue
 		}
 
-		go handleConnection(conn)
+		go HandleConnection(conn)
 	}
 }

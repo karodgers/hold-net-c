@@ -14,8 +14,8 @@ const MaxClients = 10
 // MaxUsernameLength is the maximum number of characters allowed in a username
 const MaxUsernameLength = 15
 
-// handleConnection handles communication with a connected client
-func handleConnection(conn net.Conn) {
+// HandleConnection handles communication with a connected client
+func HandleConnection(conn net.Conn) {
 	defer conn.Close()
 	conn.Write([]byte("Welcome to TCP-Chat!\n"))
 
