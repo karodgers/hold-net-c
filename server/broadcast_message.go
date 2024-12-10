@@ -4,8 +4,8 @@ import "net"
 
 // BroadcastMessage sends a message to all connected clients, excluding the sender
 func BroadcastMessage(message string, excludeConn net.Conn) {
-	mutex.Lock()
-	defer mutex.Unlock()
+	Mutex.Lock()
+	defer Mutex.Unlock()
 	MessageHistory = append(MessageHistory, message)
 
 	for conn := range Clients {

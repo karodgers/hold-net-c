@@ -1,0 +1,3 @@
+[2024-12-10 16:05:31] [2024-12-10 16:05:31][TestUser]: TestUser has joined our chat...
+[2024-12-10 16:05:31] [2024-12-10 16:05:31][TestUser]: Hello, everyone!
+[2024-12-10 16:05:31] [2024-12-10 16:05:31][TestUser]: TestUser has left our chat

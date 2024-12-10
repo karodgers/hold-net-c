@@ -23,13 +23,13 @@ func HandleConnection(conn net.Conn) {
 	SendAsciiArt(conn)
 
 	// Check if the number of clients exceeds the maximum limit
-	mutex.Lock()
+	Mutex.Lock()
 	if len(Clients) >= MaxClients {
 		conn.Write([]byte("Sorry, the chat room is full. Please try again later.\n"))
-		mutex.Unlock()
+		Mutex.Unlock()
 		return
 	}
-	mutex.Unlock()
+	Mutex.Unlock()
 
 	conn.Write([]byte("[ENTER YOUR NAME]: "))
 
@@ -54,15 +54,15 @@ func HandleConnection(conn net.Conn) {
 		}
 
 		// Check if the username is already taken
-		mutex.Lock()
+		Mutex.Lock()
 		if isUsernameTaken(name) {
 			conn.Write([]byte("Username taken, try again.\n[ENTER YOUR NAME]: "))
-			mutex.Unlock()
+			Mutex.Unlock()
 			continue
 		}
 		// If the username is unique, add the client
 		Clients[conn] = name
-		mutex.Unlock()
+		Mutex.Unlock()
 		break
 	}
 
@@ -131,9 +131,9 @@ func HandleConnection(conn net.Conn) {
 	}
 
 	// Remove the client when they disconnect
-	mutex.Lock()
+	Mutex.Lock()
 	delete(Clients, conn)
-	mutex.Unlock()
+	Mutex.Unlock()
 
 	// Broadcast the leave message with a timestamp and log it
 	timestamp = time.Now().Format("2006-01-02 15:04:05")

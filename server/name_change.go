@@ -12,8 +12,8 @@ func handleNameChange(conn net.Conn, newName string) (string, error) {
 	newName = strings.TrimSpace(newName)
 
 	// Check if the new name is valid and unique
-	mutex.Lock()
-	defer mutex.Unlock()
+	Mutex.Lock()
+	defer Mutex.Unlock()
 
 	if newName == "" {
 		return "", fmt.Errorf("name cannot be empty")
