@@ -33,19 +33,19 @@ func TestBroadcastMessage(t *testing.T) {
 	conn3 := &mockConn{}
 
 	// Add mock connections to clients map
-	Clients[excludeConn] = "Excluded"
-	Clients[conn1] = "Client1"
-	Clients[conn2] = "Client2"
-	Clients[conn3] = "Client3"
+	server.Clients[excludeConn] = "Excluded"
+	server.Clients[conn1] = "Client1"
+	server.Clients[conn2] = "Client2"
+	server.Clients[conn3] = "Client3"
 
 	// Test message
 	testMessage := "Test broadcast message"
 
 	// Call broadcastMessage
-	broadcastMessage(testMessage, excludeConn)
+	server.BroadcastMessage(testMessage, excludeConn)
 
 	// Check if the message was added to messageHistory
-	if len(messageHistory) != 1 || messageHistory[0] != testMessage {
+	if len(server.MessageHistory) != 1 || server.MessageHistory[0] != testMessage {
 		t.Errorf("Message not added to messageHistory correctly")
 	}
 
