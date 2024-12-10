@@ -7,7 +7,7 @@ import (
 )
 
 var (
-	clients        = make(map[net.Conn]string)
+	Clients        = make(map[net.Conn]string)
 	mutex          = &sync.Mutex{}
 	messageHistory []string
 )

@@ -23,10 +23,10 @@ func handleNameChange(conn net.Conn, newName string) (string, error) {
 	}
 
 	// Get the old name to notify others
-	oldName := clients[conn]
+	oldName := Clients[conn]
 
 	// Update the username
-	clients[conn] = newName
+	Clients[conn] = newName
 
 	// Return the old and new names for broadcasting purposes
 	return oldName, nil

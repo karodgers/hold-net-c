@@ -24,7 +24,7 @@ func handleConnection(conn net.Conn) {
 
 	// Check if the number of clients exceeds the maximum limit
 	mutex.Lock()
-	if len(clients) >= MaxClients {
+	if len(Clients) >= MaxClients {
 		conn.Write([]byte("Sorry, the chat room is full. Please try again later.\n"))
 		mutex.Unlock()
 		return
@@ -61,7 +61,7 @@ func handleConnection(conn net.Conn) {
 			continue
 		}
 		// If the username is unique, add the client
-		clients[conn] = name
+		Clients[conn] = name
 		mutex.Unlock()
 		break
 	}
@@ -132,7 +132,7 @@ func handleConnection(conn net.Conn) {
 
 	// Remove the client when they disconnect
 	mutex.Lock()
-	delete(clients, conn)
+	delete(Clients, conn)
 	mutex.Unlock()
 
 	// Broadcast the leave message with a timestamp and log it
