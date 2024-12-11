@@ -55,7 +55,7 @@ func HandleConnection(conn net.Conn) {
 
 		// Check if the username is already taken
 		Mutex.Lock()
-		if isUsernameTaken(name) {
+		if IsUsernameTaken(name) {
 			conn.Write([]byte("Username taken, try again.\n[ENTER YOUR NAME]: "))
 			Mutex.Unlock()
 			continue

@@ -18,7 +18,7 @@ func handleNameChange(conn net.Conn, newName string) (string, error) {
 	if newName == "" {
 		return "", fmt.Errorf("name cannot be empty")
 	}
-	if isUsernameTaken(newName) {
+	if IsUsernameTaken(newName) {
 		return "", fmt.Errorf("username taken! Try again")
 	}
 
