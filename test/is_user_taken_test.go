@@ -68,3 +68,16 @@ func TestIsUsernameTaken_CaseSensitive(t *testing.T) {
 		t.Error("Expected 'AnotherUser' to be available, but it was taken")
 	}
 }
+
+// Test output when username is empty
+func TestIsUsernameTaken_EmptyUsername(t *testing.T) {
+	// Clear the Clients map to ensure a clean state
+	server.Clients = make(map[net.Conn]string)
+
+	// Test with an empty username
+	result := server.IsUsernameTaken("")
+
+	if result {
+		t.Errorf("isUsernameTaken(\"\") = %v; want false", result)
+	}
+}
