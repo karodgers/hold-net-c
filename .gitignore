@@ -1,6 +1,6 @@
+# .gitignore
+TCPChat
 node_modules/
 *.DS_Store
 *.exe
 *.dll
-*.jar
-*.war
