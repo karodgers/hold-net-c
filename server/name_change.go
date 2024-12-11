@@ -6,8 +6,8 @@ import (
 	"strings"
 )
 
-// handleNameChange handles the logic for changing a user's name
-func handleNameChange(conn net.Conn, newName string) (string, error) {
+// HandleNameChange handles the logic for changing a user's name
+func HandleNameChange(conn net.Conn, newName string) (string, error) {
 	// Trim spaces around the name
 	newName = strings.TrimSpace(newName)
 

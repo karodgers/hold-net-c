@@ -7,8 +7,8 @@ import (
 	"time"
 )
 
-// logToFile saves the log message to a log file with a timestamp.
-func logToFile(message string) {
+// LogToFile saves the log message to a log file with a timestamp.
+func LogToFile(message string) {
 	// Open the log file (create if doesn't exist, append if exists)
 	file, err := os.OpenFile("server_logs.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0o644)
 	if err != nil {

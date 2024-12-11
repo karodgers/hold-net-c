@@ -75,7 +75,7 @@ func HandleConnection(conn net.Conn) {
 	BroadcastMessage(joinMessage, conn)
 
 	// Log the join event
-	logToFile(joinMessage)
+	LogToFile(joinMessage)
 
 	for {
 		message, err := bufio.NewReader(conn).ReadString('\n')
@@ -94,7 +94,7 @@ func HandleConnection(conn net.Conn) {
 				continue
 			}
 
-			oldName, err := handleNameChange(conn, newName)
+			oldName, err := HandleNameChange(conn, newName)
 			if err != nil {
 				conn.Write([]byte(err.Error() + "\n"))
 				continue
@@ -109,7 +109,7 @@ func HandleConnection(conn net.Conn) {
 			BroadcastMessage(changeMessage, conn)
 
 			// Log the username change
-			logToFile(changeMessage)
+			LogToFile(changeMessage)
 			continue
 		}
 
@@ -127,7 +127,7 @@ func HandleConnection(conn net.Conn) {
 		BroadcastMessage(timestampedMessage, conn)
 
 		// Log the message sent
-		logToFile(timestampedMessage)
+		LogToFile(timestampedMessage)
 	}
 
 	// Remove the client when they disconnect
@@ -141,5 +141,5 @@ func HandleConnection(conn net.Conn) {
 	BroadcastMessage(leaveMessage, conn)
 
 	// Log the leave event
-	logToFile(leaveMessage)
+	LogToFile(leaveMessage)
 }
