@@ -33,9 +33,32 @@ Before you can run the chat server, ensure you have the following installed:
     go mod tidy
     ```
 
-## Running the Server
+## Starting the Server
+Depending on the source of your repository, you can start the server in different ways. Let's explore:
 
-To start the server, run the following command:
+### 1. From Github
+if you cloned your repository from Github, it has included an executable file TCPChat. To start the server via this executable, run:
+```
+./TCPChat <port number>
+```
+Note: `<port number>` above, is optional. Should you fail to provide a port number, the server will be started at `8989` as the default port.
+
+### 2. From Gitea
+Due to upload size restrictions, we were unaple to upload an executable file to run the program. However, we have included a script that will build the executable.
+
+To build the executable run the script in TCPChat.sh with the command:
+```
+./TCPChat.sh
+```
+Once the executable is built, start the server via this executable. Run:
+```
+./TCPChat <port number>
+```
+Note: `<port number>` above, is optional. Should you fail to provide a port number, the server will be started at `8989` as the default port.
+
+### 3. Alternatively...
+
+You can also start the server, with the command:
 
 ```bash
 go run main.go
@@ -43,7 +66,7 @@ go run main.go
 
 The server will start on the default port :8989. You can modify the port by specifying the port to run the server. 
 ```bash
-go run main.go <port>
+go run main.go <port number>
 ```
 ## Usage
 
@@ -71,3 +94,14 @@ Once connected to the server, you will see the following prompts:
 ## License
 
 This project is open-source and available under the MIT License. See the LICENSE file for more details.
+
+## Authors
+[Kaunda Rogers](https://karodgers.github.io/)
+
+Apprentice Software Developer, Zone01 Kisumu
+
+
+
+[David Jesse Odhiambo](https://david-jesse.vercel.app/)
+
+Apprentice Software Developer, Zone01 Kisumu
