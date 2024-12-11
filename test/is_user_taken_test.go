@@ -81,3 +81,24 @@ func TestIsUsernameTaken_EmptyUsername(t *testing.T) {
 		t.Errorf("isUsernameTaken(\"\") = %v; want false", result)
 	}
 }
+
+// Test output when username contains special characters
+func TestIsUsernameTaken_SpecialCharacters(t *testing.T) {
+	// Clear the Clients map
+	server.Clients = make(map[net.Conn]string)
+
+	// Add a user with special characters
+	specialUsername := "user@123!#$%"
+	server.Clients[&mockConnection{}] = specialUsername
+
+	// Test if the special username is taken
+	if !server.IsUsernameTaken(specialUsername) {
+		t.Errorf("Expected username '%s' to be taken, but it wasn't", specialUsername)
+	}
+
+	// Test if a different username is not taken
+	differentUsername := "regular_user"
+	if server.IsUsernameTaken(differentUsername) {
+		t.Errorf("Expected username '%s' to not be taken, but it was", differentUsername)
+	}
+}
